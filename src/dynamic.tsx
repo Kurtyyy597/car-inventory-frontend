@@ -112,7 +112,9 @@ function CrudDynamic() {
 
 
 const loadCars = async () => {
-  const res = await fetch("http://localhost:8000/cars");
+  const res = await fetch(
+    "https://car-inventory-backend-n8j2.onrender.com/cars",
+  );
   const data: CarApi[] = await res.json();
 
   setCars(
@@ -130,6 +132,7 @@ const loadCars = async () => {
     })),
   );
 };
+
 
 /* ─────────────────────────────────────────────
    INITIAL LOAD
@@ -318,17 +321,20 @@ useEffect(() => {
    };
 
    if (editingId === null) {
-     await fetch("http://localhost:8000/cars", {
+     await fetch("https://car-inventory-backend-n8j2.onrender.com/cars", {
        method: "POST",
        headers: { "Content-Type": "application/json" },
        body: JSON.stringify(payload),
      });
    } else {
-     await fetch(`http://localhost:8000/cars/${editingId}`, {
-       method: "PUT",
-       headers: { "Content-Type": "application/json" },
-       body: JSON.stringify(payload),
-     });
+     await fetch(
+       `https://car-inventory-backend-n8j2.onrender.com/cars/${editingId}`,
+       {
+         method: "PUT",
+         headers: { "Content-Type": "application/json" },
+         body: JSON.stringify(payload),
+       },
+     );
    }
 
    await loadCars();
@@ -343,9 +349,12 @@ useEffect(() => {
 const confirmDelete = async () => {
   if (deleteId === null) return;
 
-  await fetch(`http://localhost:8000/cars/${deleteId}`, {
-    method: "DELETE",
-  });
+  await fetch(
+    `https://car-inventory-backend-n8j2.onrender.com/cars/${deleteId}`,
+    {
+      method: "DELETE",
+    },
+  );
 
   await loadCars();
   setDeleteId(null);
